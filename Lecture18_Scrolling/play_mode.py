@@ -10,8 +10,8 @@ import server
 from boy import Boy
 
 # fill here
-#from background import FixedBackground as Background
-from background import InfiniteBackground as Background
+from background import NewFixedBackground as Background
+#from background import InfiniteBackground as Background
 
 
 
