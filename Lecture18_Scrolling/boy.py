@@ -204,9 +204,8 @@ class Boy:
         )
 
         # modify here
-        self.x, self.y = get_canvas_width() / 2, get_canvas_height() / 2
-
-
+        #self.x, self.y = get_canvas_width() / 2, get_canvas_height() / 2
+        self.x, self.y = server.background.w / 2, server.background.h / 2
 
     def update(self):
         # modify here
@@ -215,15 +214,24 @@ class Boy:
         self.x += math.cos(self.dir) * self.speed * game_framework.frame_time
         self.y += math.sin(self.dir) * self.speed * game_framework.frame_time
 
-        self.x = clamp(25.0, self.x, get_canvas_width()-25.0)
-        self.y = clamp(25.0, self.y, get_canvas_height()-25.0)
+        #self.x = clamp(25.0, self.x, get_canvas_width()-25.0)
+        #self.y = clamp(25.0, self.y, get_canvas_height()-25.0)
+        # self.x = clamp(get_canvas_width() / 2,
+        #                self.x, server.background.w - get_canvas_width() / 2)
+        # self.y = clamp(get_canvas_height() / 2,
+        #                self.y, server.background.h - get_canvas_height() / 2)
+        #self.x = clamp(50.0, self.x, server.background.w - 50.0)
+        #self.y = clamp(50.0, self.y, server.background.h - 50.0)
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
-        self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, self.x, self.y)
-        self.font.draw(int(self.x - 100), int(self.y + 60), f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
+        sx, sy = get_canvas_width() // 2, get_canvas_height() // 2
+        self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
+
+        #self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, self.x, self.y)
+        #self.font.draw(int(self.x - 100), int(self.y + 60), f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
 
 
     def get_bb(self):
