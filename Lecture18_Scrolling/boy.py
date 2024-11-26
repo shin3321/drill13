@@ -185,6 +185,7 @@ class Boy:
     def __init__(self):
         self.frame = 0
         self.action = 3
+        self.ball_count = 0
         self.image = load_image('animation_sheet.png')
         self.font = load_font('ENCR10B.TTF', 24)
         self.state_machine = StateMachine(self)
@@ -235,12 +236,18 @@ class Boy:
         #self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, self.x, self.y)
         #self.font.draw(int(self.x - 100), int(self.y + 60), f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
         self.image.clip_draw(int(self.frame) * 100, self.action * 100, 100, 100, sx, sy)
-        self.font.draw(sx - 100, sy + 60, f'({self.x:5.5}, {self.y:5.5})', (255, 255, 0))
+        self.font.draw(sx - 100, sy + 60,  f'({self.x:5.5}, {self.y:5.5}), {self.ball_count}', (255, 255, 0))
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+
+        sx = self.x - server.background.window_left
+        sy = self.y - server.background.window_bottom
+        return sx - 20, sy - 50, sx + 20, sy + 50
 
     def handle_collision(self, group, other):
+        if group == 'boy:ball':
+            self.ball_count += 1
         pass
 
 
